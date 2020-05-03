@@ -1,13 +1,14 @@
 call plug#begin()
 " Some Git stuff
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 " EditorConfig
 Plug 'editorconfig/editorconfig-vim'
 " Execute code in current buffer
 Plug 'huytd/vim-quickrun'
 " Language support things
 Plug 'sheerun/vim-polyglot'
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 Plug 'othree/html5.vim'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'ap/vim-css-color'
@@ -32,6 +33,17 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-abolish' " For case perserved subtitue :%S
 Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-multiple-cursors'
+
+" fzf vim
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Commenter
+Plug 'jbgutierrez/vim-better-comments'
+
+" Auto save
+Plug '907th/vim-auto-save'
+
 call plug#end()
 
 filetype plugin indent on
@@ -63,6 +75,12 @@ set ttimeout
 set ttimeoutlen=10
 set termguicolors
 set ignorecase
+set relativenumber
+syntax on
+filetype on
+filetype plugin on
+set autoread
+set autowrite
 
 " Tweak for Markdown mode
 autocmd FileType markdown call s:markdown_mode_setup()
@@ -107,9 +125,9 @@ set background=dark
 let g:quantum_italics=1
 colorscheme quantum
 
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-	syntax on
-endif
+" if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+" syntax on
+" endif
 
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 set list
@@ -117,9 +135,9 @@ set list
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set shiftround
 set expandtab
 
@@ -208,6 +226,7 @@ nnoremap <Leader>sr :so .work<CR>
 nnoremap <Leader><Leader>r :so ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>n :NERDTree<CR>
 nnoremap <Leader>f :NERDTreeFind<CR>
+nnoremap <Leader>nt :NERDTreeToggle<CR>
 "Buffer
 nnoremap <Leader>tn :tabn<CR>
 nnoremap <Leader>tp :tabp<CR>
@@ -231,7 +250,7 @@ set diffopt+=vertical
 nnoremap <Leader>1 :diffget 1<CR>:diffupdate<CR>
 nnoremap <Leader>2 :diffget 2<CR>:diffupdate<CR>
 
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 function! DeleteCurrentFileAndBuffer()
   call delete(expand('%'))
@@ -313,7 +332,8 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -482,15 +502,25 @@ nnoremap <C-o> :Denite outline<CR>
 map * :Denite -resume -refresh<CR>
 
 " Multiple Cursor
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_start_word_key      = '<C-d>'
-let g:multi_cursor_select_all_word_key = '<C-L>'
-let g:multi_cursor_start_key           = 'g<C-d>'
-let g:multi_cursor_select_all_key      = 'g<C-L>'
-let g:multi_cursor_next_key            = '<C-d>'
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-i>'
+let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
+" custom mapping
+" let g:multi_cursor_use_default_mapping=0
+" let g:multi_cursor_start_word_key      = '<C-d>'
+" let g:multi_cursor_select_all_word_key = '<C-L>'
+" let g:multi_cursor_start_key           = 'g<C-d>'
+" let g:multi_cursor_select_all_key      = 'g<C-L>'
+" let g:multi_cursor_next_key            = '<C-d>'
+" let g:multi_cursor_prev_key            = '<C-p>'
+" let g:multi_cursor_skip_key            = '<C-i>'
+" let g:multi_cursor_quit_key            = '<Esc>'
 
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -506,3 +536,12 @@ highlight link deniteSource_SymbolsHeader String
 highlight link deniteSource_grepLineNR deniteSource_grepFile
 highlight WildMenu guibg=NONE guifg=#87bb7c
 highlight CursorLineNr guibg=NONE
+
+" Git stuff
+set updatetime=100
+autocmd BufWritePost * GitGutter
+
+" Auto save
+let g:auto_save = 1
+let g:auto_save_no_updatetime = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged"]
