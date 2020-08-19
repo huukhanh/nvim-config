@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/Users/mba0270f/.config/alacritty'
+let g:netrw_dirhist_2='/Users/mba0270f/code/AT_linkncom/cm_api/app/Core/Course/Actions'
+let g:netrw_dirhist_1='/Users/mba0270f/code/AT_linkncom/cm_api/app/Core/Course'
+let g:netrw_dirhist_0='/Users/mba0270f/code/AT_linkncom/cm_api/app/Core'
+let g:netrw_dirhist_9='/Users/mba0270f/code/AT_linkncom/cm_api/app'
+let g:netrw_dirhist_8='/Users/mba0270f/code/AT_linkncom/cm_api'
+let g:netrw_dirhist_7='/Users/mba0270f/code/AT_linkncom/cm_api/app/Core/Activity/Actions'
+let g:netrw_dirhist_6='/Users/mba0270f/code/AT_linkncom/cm_api/app/Core/Activity'
+let g:netrw_dirhist_5='/Users/mba0270f/code/AT_linkncom/cm_api/app/Core'
+let g:netrw_dirhist_4='/Users/mba0270f/code/AT_linkncom/cm_api/app'
