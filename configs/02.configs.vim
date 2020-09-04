@@ -21,6 +21,9 @@ set hlsearch
 
 "}}
 
+set autoread
+set autowrite
+set clipboard=unnamedplus
 set number
 set relativenumber
 set ignorecase
@@ -70,9 +73,9 @@ noremap <silent> <c-l> :wincmd l<CR>
 "copy/pase
 vnoremap < <gv
 vnoremap > >gv
-vnoremap <silent> y y:call ClipboardYank()<cr>
-vnoremap <silent> d d:call ClipboardYank()<cr>
-nnoremap <silent> p :call ClipboardPaste()<cr>p
+"vnoremap <silent> y y:call ClipboardYank()<cr>
+"vnoremap <silent> d d:call ClipboardYank()<cr>
+"nnoremap <silent> p :call ClipboardPaste()<cr>p
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 "ctrslf
 vmap <leader>sw <Plug>CtrlSFVwordPath
