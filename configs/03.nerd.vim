@@ -1,6 +1,6 @@
 " NERDTree
-map <C-t> :NERDTreeToggle<CR>
-map <C-i> :NERDTreeFind<CR>
+nnoremap <Leader>nt :NERDTreeToggle<CR>
+nnoremap <Leader>nf :NERDTreeFind<CR>
 let g:NERDTreePatternMatchHighlightFullName = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
@@ -15,4 +15,4 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " NERDComment
-map <leader>cc <Plug>NERDCommenterToggle
+map <leader>mm <Plug>NERDCommenterToggle
